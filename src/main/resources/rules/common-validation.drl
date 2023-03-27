@@ -1,0 +1,17 @@
+import com.sibin.springwithdrools.api.dto.RequestDto;
+
+rule "Validate Name"
+    when
+        request : RequestDto(name == null || !name.matches("^[a-zA-Z ]+$"))
+    then
+        request.setStatus("FAILURE");
+        request.setMessage("Invalid name.");
+end
+
+rule "Validate ID"
+    when
+        request : RequestDto(id == null || id.length() < 3)
+    then
+        request.setStatus("FAILURE");
+        request.setMessage("Invalid ID.");
+end
